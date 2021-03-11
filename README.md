@@ -1,28 +1,26 @@
-# HommeWork
 ### Представьте, что вы стажер в компании "Formatter Inc.".
-## Part 1
+Part 1
 ### Вам поручили перейти на систему автоматизированной сборки CMake. Исходные файлы находятся в директории formatter_lib. В этой директории находятся файлы для статической библиотеки formatter. Создайте CMakeList.txt в директории formatter_lib, с помощью которого можно будет собирать статическую библиотеку formatter.
-Окей, бос!
-1) Чтобы настрить систему автоматической сборки, нам нужно создать CMakeLists.txt
+1) Чтобы настрить систему автоматической сборки, необходимо создать CMakeLists.txt
 2) В созданном файле я прописал следующие команды:
 > cmake_minimum_required(VERSION 3.4)
 > add_library(formatter STATIC formatter.h formatter.cpp)
-2) Чтобы система заработала, нам нужно симэйку указать адрес нашегофайла, я это сделал с помощью команды $cmake ~/workspace/projects/lab03/formatter_lib/
-3) Далеее я запустил автоматическую сборку командой $make и получил файл библиотеки
+2) Чтобы система заработала, нам необходимо указать cmake адрес нашего файла, что мы делаем с помощью команды $cmake ~/Berendei-Jr/workspace/projects/lab03/formatter_lib/
+3) Далеее я запустил автоматическую сборку командой $make, чтобы получить файл библиотеки
 
-## Part 2
+Part 2
 ### У компании "Formatter Inc." есть перспективная библиотека, которая является расширением предыдущей библиотеки. Т.к. вы уже овладели навыком созданием CMakeList.txt для статической библиотеки formatter, ваш руководитель поручает заняться созданием CMakeList.txt для библиотеки formatter_ex, которая в свою очередь использует библиотеку formatter.
-1) Данный проект требует подключения библиотеки, что мы должны прописать в СMakeLists.txt
+1) Данный проект требует подключения библиотеки, поэтому мне необходимо внести следующие изменения в СMakeLists.txt
 > cmake_minimum_required(VERSION 3.4)
 > project(formatter_ex)
 > include_directories(formatter_lib)
 > add_subdirectory(formatter_lib)
 > add_library(formatter_ex STATIC formatter_ex.h formatter_ex.cpp)
 > target_link_libraries(formatter_ex formatter)
-2) Затем мы переносим библиотеку formatter_lib в рабочий репозиторий
-3) Далее мы собираем проект и любуемся на получившийся файл
+2) Затем мы переносим библиотеку formatter_lib в репозиторий
+3) Далее приступаем к сборке проекта.
 
-## part 3
+Part 3
 ### Конечно же ваша компания предоставляет примеры использования своих библиотек. Чтобы продемонстрировать как работать с библиотекой formatter_ex, вам необходимо создать два CMakeList.txt для двух простых приложений:
 
 ###    hello_world, которое использует библиотеку formatter_ex;
@@ -30,8 +28,7 @@
 
 ### Удачной стажировки!
 
-Спасибо бос!
-1) создаем СMakeLists.txt в папке каждого приложения
+1) В папке каждого приложения создаем СMakeLists.txt. hello_world: 
 > cmake_minimum_required(VERSION 3.4)
 > project(hello_world)
 > include_directories(formatter_ex_lib)
@@ -39,7 +36,7 @@
 > add_executable(hello_world hello_world.cpp)
 > target_link_libraries(hello_world formatter_ex)
 
-И второй:
+solver:
 
 > cmake_minimum_required(VERSION 3.4)
 > project(solver)
@@ -51,20 +48,20 @@
 > target_link_libraries(solver formatter_ex)
 > target_link_libraries(solver solver_lib)
 
-2) Дальше я настроил систему автоматической сборки в библиотеке Solver:
+2) Настраиваем систему автоматической сборки в библиотеке Solver:
 
 > cmake_minimum_required(VERSION 3.4)
 > add_library(solver_lib STATIC solver.h solver.cpp)
 
-3) Собираем проект, но нам выдает компилятор ошибку
-4) Чтобы ее исправить я в исходный файл библиотеки Solver_lib подключил библиотеку math.h
-5) Оба приложения заработали:
+3) Собираем проект, но получаем ошибку.
+4) Чтобы решить проблему, в исходный файл библиотеки Solver_lib необходимо подключить библиотеку math.h
+5) Запускаем оба приложения: hello_world:
 > world 
 > -------------------------
 > hello, world!
 > -------------------------
 
-И второе приложениие:
+solver:
 
 > 1
 > 4
@@ -75,4 +72,3 @@
 > -------------------------
 > x2 = -2.000000
 > -------------------------
-
